@@ -13,7 +13,7 @@ namespace Ejecucion
         static void Main(string[] args)
         {
             ListaEnlazada lista = new ListaEnlazada();
-            Pila pila = new Pila(); 
+            Pila pila = new Pila();
 
             Console.WriteLine("Ingrese una expresión matemática:");
             string expresion = Console.ReadLine();
@@ -23,7 +23,7 @@ namespace Ejecucion
             {
                 if (char.IsWhiteSpace(caracter)) // Ignorar espacios en blanco
                 {
-                    continue; 
+                    continue;
                 }
                 if (char.IsDigit(caracter))
                 {
@@ -38,6 +38,29 @@ namespace Ejecucion
                         lista.Insertar(numeroActual);
                         numeroActual = ""; // Reinicio
                     }
+
+                    string op = caracter.ToString();
+
+                    if (op == "(")
+                    {
+                        pila.Push(op);
+                    }
+
+                    else if (op == ")")
+                    {
+                        // Mientras la pila no esté vacía y el tope no sea '(',
+                        while (!pila.EstaVacia() && pila.Peek() != "(")
+                        {
+                            lista.Insertar(pila.Pop()); // desapilar operadores y agregarlos a la lista.
+                        }
+
+                        // Al final, sacar el '(' de la pila para descartarlo
+                        if (!pila.EstaVacia() && pila.Peek() == "(")
+                        {
+                            pila.Pop();
+                        }
+                    }
+
                     // Leer el operador
                     if ("+" == caracter.ToString() || "-" == caracter.ToString() || "*" == caracter.ToString() || "/" == caracter.ToString())
                     {
@@ -45,7 +68,10 @@ namespace Ejecucion
                     }
                     else
                     {
-                        Console.WriteLine($"Carácter no válido: {caracter}");
+                        if (caracter != '(' && caracter != ')')
+                        {
+                            Console.WriteLine($"Carácter no válido: {caracter}");
+                        }
                     }
                 }
             }

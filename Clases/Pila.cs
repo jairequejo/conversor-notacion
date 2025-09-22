@@ -33,5 +33,9 @@ namespace Clases
         {
             return cima == null;
         }
+        public string Peek()
+        {
+            return cima.Dato;
+        }
     }
 }
