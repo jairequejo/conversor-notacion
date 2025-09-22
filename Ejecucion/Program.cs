@@ -10,6 +10,18 @@ namespace Ejecucion
 {
     internal class Program
     {
+        static int Precedencia(string op)
+        {
+            if (op == "+" || op == "-")
+            {
+                return 1;
+            }
+            if (op == "*" || op == "/") 
+            {
+                return 2;
+            }
+            return 0;
+        }
         static void Main(string[] args)
         {
             ListaEnlazada lista = new ListaEnlazada();
@@ -39,39 +51,34 @@ namespace Ejecucion
                         numeroActual = ""; // Reinicio
                     }
 
-                    string op = caracter.ToString();
+                    string operador = caracter.ToString();
 
-                    if (op == "(")
+                    if (operador == "(")
                     {
-                        pila.Push(op);
+                        pila.Push(operador);
                     }
-
-                    else if (op == ")")
+                    else if (operador == ")")
                     {
-                        // Mientras la pila no esté vacía y el tope no sea '(',
                         while (!pila.EstaVacia() && pila.Peek() != "(")
                         {
-                            lista.Insertar(pila.Pop()); // desapilar operadores y agregarlos a la lista.
+                            lista.Insertar(pila.Pop());
                         }
-
-                        // Al final, sacar el '(' de la pila para descartarlo
                         if (!pila.EstaVacia() && pila.Peek() == "(")
                         {
                             pila.Pop();
                         }
                     }
-
-                    // Leer el operador
-                    if ("+" == caracter.ToString() || "-" == caracter.ToString() || "*" == caracter.ToString() || "/" == caracter.ToString())
+                    else if (operador == "+" || operador == "-" || operador == "*" || operador == "/")
                     {
-                        pila.Push(caracter.ToString());
+                        while (!pila.EstaVacia() && Precedencia(pila.Peek()) >= Precedencia(operador))
+                        {
+                            lista.Insertar(pila.Pop());
+                        }
+                        pila.Push(operador);
                     }
                     else
                     {
-                        if (caracter != '(' && caracter != ')')
-                        {
-                            Console.WriteLine($"Carácter no válido: {caracter}");
-                        }
+                        Console.WriteLine($"Carácter no válido: {caracter}");
                     }
                 }
             }
