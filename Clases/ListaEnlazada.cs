@@ -11,12 +11,6 @@ namespace Clases
         private Nodo primero;
         private Nodo ultimo;
 
-        public ListaEnlazada()
-        {
-            primero = null;
-            ultimo = null;
-        }
-
         public void Insertar(string dato)
         {
             Nodo nuevo = new Nodo(dato);
@@ -41,12 +35,6 @@ namespace Clases
                 actual = actual.Siguiente;
             }
             Console.WriteLine();
-        }
-
-        // Verificar si está vacía
-        public bool EstaVacia()
-        {
-            return primero == null;
         }
     }
 }

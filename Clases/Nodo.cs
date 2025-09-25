@@ -8,15 +8,13 @@ namespace Clases
 {
     public class Nodo
     {
-        public string Dato { get; set; }
-        public Nodo Siguiente { get; set; }
-        //public Nodo Anterior { get; set; }
+        public string Dato;
+        public Nodo Siguiente;
 
         public Nodo(string dato)
         {
             this.Dato = dato;
             Siguiente = null;
-            //Anterior = null;
         }
     }
 }

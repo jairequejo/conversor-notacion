@@ -44,7 +44,7 @@ namespace Ejecucion
                 }
                 else
                 {
-                    // Se agrega el numero actual a la lista si existe
+                    // Se agrega el numero actual a la lista
                     if (numeroActual != "")
                     {
                         lista.Insertar(numeroActual);
@@ -70,6 +70,7 @@ namespace Ejecucion
                     }
                     else if (operador == "+" || operador == "-" || operador == "*" || operador == "/")
                     {
+                        // Mientras la pila no esté vacía y la jerarquia del operador en la cima de la pila sea mayor o igual a la del operador actual   
                         while (!pila.EstaVacia() && Precedencia(pila.Peek()) >= Precedencia(operador))
                         {
                             lista.Insertar(pila.Pop());
@@ -94,6 +95,8 @@ namespace Ejecucion
             {
                 lista.Insertar(pila.Pop());
             }
+
+            // Mostrar la expresión en notación postfija
             Console.WriteLine("Expresión en notación postfija:");
             lista.Recorrer();
         }

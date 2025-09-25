@@ -10,11 +10,6 @@ namespace Clases
     {
         private Nodo cima;
 
-        public Pila()
-        {
-            cima = null;
-        }
-
         public void Push(string dato)
         {
             Nodo nuevo = new Nodo(dato);
